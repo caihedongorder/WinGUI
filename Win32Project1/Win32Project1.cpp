@@ -148,18 +148,26 @@ public:
 		a += 10;
 		return a;
 	}
+	f32 testC() {
+		return f;
+	}
 	int a = 1000;
 	int b = 10000;
+	f32 f = 1.2341f;
 };
 
-IMPLEMENT_OBJECT_BEGIN(C,Core::Object)
-	DEFINE_PROPERTY(C,a)
-	DEFINE_PROPERTY(C,b)
+IMPLEMENT_OBJECT_BEGIN(C, Core::Object)
+DEFINE_PROPERTY(C, a)
+DEFINE_PROPERTY(C, b)
 
-	DEFINE_FUNCTION(C, void, testA)
-	DEFINE_FUNCTION(C, i32, testB)
+DEFINE_FUNCTION(C, void, testA)
+DEFINE_FUNCTION(C, i32, testB)
+DEFINE_FUNCTION(C, f32, testC)
 IMPLEMENT_OBJECT_END()
 
+
+typedef void(*Func1)();
+typedef void(Object::*Func2)();
 
 int APIENTRY wWinMain(HINSTANCE hInstance,
 	HINSTANCE hPrevInstance,
@@ -168,7 +176,23 @@ int APIENTRY wWinMain(HINSTANCE hInstance,
 {
 	
 	C myC;
+
+	auto testFunc = &C::testA;
+	auto pTestFunc = (void*)&testFunc;
+	Func2 pTestFunc2;
+	
+	memcpy(&pTestFunc2, &testFunc, sizeof(testFunc));
 	auto myCC = myC.GetClass();
+
+	auto ValueA = myC.GetValue<i32>("a");
+	myC.SetValue("a", 10000);
+	ValueA = myC.GetValue<i32>("a");
+	myC.SetValue("b", 10);
+	auto ValueB = myC.GetValue<i32>("b");
+
+	myC.CallFunction<void>("testA");
+	auto b = myC.CallFunction<i32>("testB");
+	auto f = myC.CallFunction<f32>("testC");
 
 	auto pClass = IReflectSystem::GetInst()->FindClass("class C");
 	//auto scv = CSVParser::Create(TEXT("F:/GameDemo/Content/Configs/Skills.csv"));

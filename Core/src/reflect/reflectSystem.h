@@ -18,7 +18,7 @@ namespace Core
 #define DECLARE_OBJECT(ClassPrefix,ThisClass, SuperClass)\
 public:\
 	static IClass* StaticClass();\
-	IClass* GetClass() { return _PrivateClass; } \
+	virtual const IClass* GetClass() const { return ThisClass::StaticClass(); } \
 	ThisClass();\
 private:\
 	class ClassPrefix ClassRegister\
@@ -29,8 +29,7 @@ private:\
 	private:\
 		IClass* mClass;\
 	};\
-	static ClassRegister __msRegister;\
-	IClass* _PrivateClass = nullptr;
+	static ClassRegister __msRegister;
 
 #define IMPLEMENT_OBJECT_BEGIN(ThisClass, SuperClass)\
 	ThisClass::ClassRegister ThisClass::__msRegister(FPropertyTag<ThisClass>::Inner.GetName(),FPropertyTag<SuperClass>::Inner.GetName());\
@@ -38,7 +37,6 @@ private:\
 		return __msRegister.GetClass();\
 	}\
 	ThisClass::ThisClass(){\
-		_PrivateClass = ThisClass::StaticClass();\
 	}\
 	ThisClass::ClassRegister::ClassRegister(const std::string& InThisClassName,const std::string& InSuperClassName)\
 	{\

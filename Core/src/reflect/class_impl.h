@@ -18,7 +18,7 @@ namespace Core
 		virtual void AddProperty(const std::string& InPropName, std::shared_ptr<ClassProperty> InProp) override;
 		virtual const ClassProperty* FindProp(const std::string& InPropName) const override;
 		virtual void AddFunction(const std::string& InFunctionName, std::shared_ptr<ClassFunctionBase> InProp) override;
-		virtual ClassFunctionBase* FindFunction(const std::string& InFunctionName) override;
+		virtual const ClassFunctionBase* FindFunction(const std::string& InFunctionName) const override;
 	private:
 		std::unordered_map<std::string, std::shared_ptr<ClassProperty>> mProps;
 		std::unordered_map<std::string, std::shared_ptr<ClassFunctionBase>> mFuncs;

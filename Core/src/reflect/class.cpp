@@ -10,7 +10,7 @@ namespace Core
 		 mFuncs[InFunctionName] = InProp;
 	}
 
-	Core::ClassFunctionBase* Class::FindFunction(const std::string& InFunctionName)
+	const Core::ClassFunctionBase* Class::FindFunction(const std::string& InFunctionName) const
 	{
 		auto It = mFuncs.find(InFunctionName);
 		if (It != mFuncs.end())

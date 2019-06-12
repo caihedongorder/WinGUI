@@ -98,13 +98,13 @@ namespace Core
 		virtual ClassPropertyType  GetType() const { return ClassPropertyType_Unknown; }
 
 		template<typename Class, typename T>
-		T GetValue(Class* InObj) const {
-			auto pData = (i8*)((void*)InObj);
+		T GetValue(const Class* InObj) const {
+			auto pData = (const i8*)((const void*)InObj);
 			return T(*(T*)(pData + mOffset));
 		}
 
 		template<typename Class, typename T>
-		void SetValue(Class* InObj, T InValue) {
+		void SetValue(Class* InObj, T InValue) const {
 			auto pData = (i8*)((void*)InObj);
 			*(T*)(pData + mOffset) = InValue;
 		}
