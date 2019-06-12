@@ -1,0 +1,165 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{b566752d-702f-455b-801e-466c25b26a59}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\apps">
+      <UniqueIdentifier>{f4434c97-9931-4c09-90fc-7f597e8e9b93}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\windows">
+      <UniqueIdentifier>{b396dfcb-86cc-480e-aad2-96040d1b762f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\windows\Controls">
+      <UniqueIdentifier>{6bcb0264-b013-4a01-80b1-68e37218ece9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\windows\Containers">
+      <UniqueIdentifier>{7d16b87b-27d2-4929-91a3-5a49ea35bc2a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\windows\Controls\buttons">
+      <UniqueIdentifier>{798645fd-e6d8-44a4-a158-7b680fb1e452}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\windows\Events">
+      <UniqueIdentifier>{a56b52eb-7ad0-4b95-a103-c7dd2408828d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\windows\Events\Buttons">
+      <UniqueIdentifier>{cf85468d-0343-4481-acfa-6f3f021269e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\windows\Controls\Combox">
+      <UniqueIdentifier>{7da44b1f-edaa-4e5c-8afb-5242f88a6775}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\windows\Events\ComboBox">
+      <UniqueIdentifier>{27372f55-e15f-4f28-8267-eadbca43502c}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\WinGui.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\typedefines.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\apps\Application.h">
+      <Filter>src\apps</Filter>
+    </ClInclude>
+    <ClInclude Include="src\windows\WindowBase.h">
+      <Filter>src\windows</Filter>
+    </ClInclude>
+    <ClInclude Include="src\windows\Containers\Dialog.h">
+      <Filter>src\windows\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\windows\Controls\WindowControlBase.h">
+      <Filter>src\windows\Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="src\windows\Controls\buttons\ButtonBase.h">
+      <Filter>src\windows\Controls\buttons</Filter>
+    </ClInclude>
+    <ClInclude Include="src\windows\Controls\buttons\Button.h">
+      <Filter>src\windows\Controls\buttons</Filter>
+    </ClInclude>
+    <ClInclude Include="src\windows\Containers\WinContainterBase.h">
+      <Filter>src\windows\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\windows\Containers\TopWindow.h">
+      <Filter>src\windows\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\windows\Events\Event.h">
+      <Filter>src\windows\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\windows\Controls\buttons\CheckBox.h">
+      <Filter>src\windows\Controls\buttons</Filter>
+    </ClInclude>
+    <ClInclude Include="src\windows\Controls\buttons\RadioButton.h">
+      <Filter>src\windows\Controls\buttons</Filter>
+    </ClInclude>
+    <ClInclude Include="src\windows\Controls\buttons\PushButton.h">
+      <Filter>src\windows\Controls\buttons</Filter>
+    </ClInclude>
+    <ClInclude Include="src\windows\Controls\Combox\ComboBox.h">
+      <Filter>src\windows\Controls\Combox</Filter>
+    </ClInclude>
+    <ClInclude Include="src\windows\Controls\Combox\ComboBoxEx.h">
+      <Filter>src\windows\Controls\Combox</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="dllmain.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\apps\Application.cpp">
+      <Filter>src\apps</Filter>
+    </ClCompile>
+    <ClCompile Include="src\windows\WindowBase.cpp">
+      <Filter>src\windows</Filter>
+    </ClCompile>
+    <ClCompile Include="src\windows\Containers\Dialog.cpp">
+      <Filter>src\windows\Containers</Filter>
+    </ClCompile>
+    <ClCompile Include="src\windows\WindProc.cpp">
+      <Filter>src\windows</Filter>
+    </ClCompile>
+    <ClCompile Include="src\windows\Controls\WindowControlBase.cpp">
+      <Filter>src\windows\Controls</Filter>
+    </ClCompile>
+    <ClCompile Include="src\windows\Controls\buttons\ButtonBase.cpp">
+      <Filter>src\windows\Controls\buttons</Filter>
+    </ClCompile>
+    <ClCompile Include="src\windows\Controls\buttons\Button.cpp">
+      <Filter>src\windows\Controls\buttons</Filter>
+    </ClCompile>
+    <ClCompile Include="src\windows\Containers\WinContainterBase.cpp">
+      <Filter>src\windows\Containers</Filter>
+    </ClCompile>
+    <ClCompile Include="src\windows\Containers\TopWindow.cpp">
+      <Filter>src\windows\Containers</Filter>
+    </ClCompile>
+    <ClCompile Include="src\windows\Events\Buttons\Event_Button.cpp">
+      <Filter>src\windows\Events\Buttons</Filter>
+    </ClCompile>
+    <ClCompile Include="src\windows\Controls\buttons\CheckBox.cpp">
+      <Filter>src\windows\Controls\buttons</Filter>
+    </ClCompile>
+    <ClCompile Include="src\windows\Controls\buttons\RadioButton.cpp">
+      <Filter>src\windows\Controls\buttons</Filter>
+    </ClCompile>
+    <ClCompile Include="src\windows\Controls\buttons\PushButton.cpp">
+      <Filter>src\windows\Controls\buttons</Filter>
+    </ClCompile>
+    <ClCompile Include="src\WinGUI.cpp">
+      <Filter>src\windows</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Event_ComboBox.cpp">
+      <Filter>src\windows\Events\ComboBox</Filter>
+    </ClCompile>
+    <ClCompile Include="src\windows\Controls\Combox\ComboBox.cpp">
+      <Filter>src\windows\Controls\Combox</Filter>
+    </ClCompile>
+    <ClCompile Include="src\windows\Controls\Combox\ComboBoxEx.cpp">
+      <Filter>src\windows\Controls\Combox</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

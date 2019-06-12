@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{f6b71e26-505d-4dca-a0d6-a409fb87c56e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\utils">
+      <UniqueIdentifier>{747c3002-f15f-467a-ac79-b05add2ee154}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\maths">
+      <UniqueIdentifier>{f54c6ce6-b429-494b-b15d-9250907ae736}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\reflect">
+      <UniqueIdentifier>{b0b9496d-2776-4f21-8e68-dc2737ea8605}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Core.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\utils\MathUtil.h">
+      <Filter>src\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="src\maths\vector3.h">
+      <Filter>src\maths</Filter>
+    </ClInclude>
+    <ClInclude Include="src\utils\string_util.h">
+      <Filter>src\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="src\utils\FileUtil.h">
+      <Filter>src\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="src\utils\CSVParser.h">
+      <Filter>src\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Delegate.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\reflect\object.h">
+      <Filter>src\reflect</Filter>
+    </ClInclude>
+    <ClInclude Include="src\reflect\TemplateMisc.h">
+      <Filter>src\reflect</Filter>
+    </ClInclude>
+    <ClInclude Include="src\reflect\property.h">
+      <Filter>src\reflect</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Core_Defines.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\reflect\function.h">
+      <Filter>src\reflect</Filter>
+    </ClInclude>
+    <ClInclude Include="src\reflect\reflectSystem.h">
+      <Filter>src\reflect</Filter>
+    </ClInclude>
+    <ClInclude Include="src\reflect\class.h">
+      <Filter>src\reflect</Filter>
+    </ClInclude>
+    <ClInclude Include="src\reflect\class_impl.h">
+      <Filter>src\reflect</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Core.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="dllmain.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\maths\vector3.cpp">
+      <Filter>src\maths</Filter>
+    </ClCompile>
+    <ClCompile Include="src\utils\string_util.cpp">
+      <Filter>src\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="src\utils\FileUtil.cpp">
+      <Filter>src\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="src\utils\CSVParser.cpp">
+      <Filter>src\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="src\reflect\object.cpp">
+      <Filter>src\reflect</Filter>
+    </ClCompile>
+    <ClCompile Include="src\reflect\reflectSystem.cpp">
+      <Filter>src\reflect</Filter>
+    </ClCompile>
+    <ClCompile Include="src\reflect\class.cpp">
+      <Filter>src\reflect</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
