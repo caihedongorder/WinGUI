@@ -1,6 +1,6 @@
 ﻿  Win32Project1.cpp
 e:\vs projects\win apis\win32project1\core\src\reflect\class.h(32): warning C4311: “<function-style-cast>”: 从“i32 *”到“i32”的指针截断
-  e:\vs projects\win apis\win32project1\win32project1\win32project1.cpp(160): note: 参见对正在编译的函数 模板 实例化“i32 Core::IClass::GetPropOffset<intC::* >(Prop)”的引用
+  e:\vs projects\win apis\win32project1\win32project1\win32project1.cpp(191): note: 参见对正在编译的函数 模板 实例化“i32 Core::IClass::GetPropOffset<intC::* >(Prop)”的引用
           with
           [
               Prop=int C::* 

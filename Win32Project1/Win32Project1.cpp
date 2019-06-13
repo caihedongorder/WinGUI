@@ -151,6 +151,37 @@ public:
 	f32 testC() {
 		return f;
 	}
+
+	void testParam1(i32 InParam1) {
+		b = InParam1;
+	}
+	void testParam2(i32 InParam1,i32 InParam2) {
+		b = InParam1 + InParam2;
+	}
+	void testParam3(i32 InParam1,i32 InParam2,i32 InParam3) {
+		b = InParam1 + InParam2 + InParam3;
+	}
+	void testParam4(i32 InParam1,i32 InParam2,i32 InParam3,i32 InParam4) {
+		b = InParam1 + InParam2 + InParam3 + InParam4;
+	}
+	void testParam5(i32 InParam1,i32 InParam2,i32 InParam3,i32 InParam4,i32 InParam5) {
+		b = InParam1 + InParam2 + InParam3 + InParam4 + InParam5;
+	}
+	void testParam6(i32 InParam1,i32 InParam2,i32 InParam3,i32 InParam4,i32 InParam5,i32 InParam6) {
+		b = InParam1 + InParam2 + InParam3 + InParam4 + InParam5 + InParam6;
+	}
+	void testParam7(i32 InParam1,i32 InParam2,i32 InParam3,i32 InParam4,i32 InParam5,i32 InParam6,i32 InParam7) {
+		b = InParam1 + InParam2 + InParam3 + InParam4 + InParam5 + InParam6 + InParam7;
+	}
+	void testParam8(i32 InParam1,i32 InParam2,i32 InParam3,i32 InParam4,i32 InParam5,i32 InParam6,i32 InParam7,i32 InParam8) {
+		b = InParam1 + InParam2 + InParam3 + InParam4 + InParam5 + InParam6 + InParam7+InParam8;
+	}
+	void testParam9(i32 InParam1,i32 InParam2,i32 InParam3,i32 InParam4,i32 InParam5,i32 InParam6,i32 InParam7,i32 InParam8,i32 InParam9) {
+		b = InParam1 + InParam2 + InParam3 + InParam4 + InParam5 + InParam6 + InParam7+InParam8 + InParam9;
+	}
+	void testParam10(i32 InParam1,i32 InParam2,i32 InParam3,i32 InParam4,i32 InParam5,i32 InParam6,i32 InParam7,i32 InParam8,i32 InParam9,i32 InParam10) {
+		b = InParam1 + InParam2 + InParam3 + InParam4 + InParam5 + InParam6 + InParam7+InParam8 + InParam9 + InParam10;
+	}
 	int a = 1000;
 	int b = 10000;
 	f32 f = 1.2341f;
@@ -163,6 +194,16 @@ DEFINE_PROPERTY(C, b)
 DEFINE_FUNCTION(C, void, testA)
 DEFINE_FUNCTION(C, i32, testB)
 DEFINE_FUNCTION(C, f32, testC)
+DEFINE_FUNCTION(C, void, testParam1)
+DEFINE_FUNCTION(C, void, testParam2)
+DEFINE_FUNCTION(C, void, testParam3)
+DEFINE_FUNCTION(C, void, testParam4)
+DEFINE_FUNCTION(C, void, testParam5)
+DEFINE_FUNCTION(C, void, testParam6)
+DEFINE_FUNCTION(C, void, testParam7)
+DEFINE_FUNCTION(C, void, testParam8)
+DEFINE_FUNCTION(C, void, testParam9)
+DEFINE_FUNCTION(C, void, testParam10)
 IMPLEMENT_OBJECT_END()
 
 
@@ -193,6 +234,17 @@ int APIENTRY wWinMain(HINSTANCE hInstance,
 	myC.CallFunction<void>("testA");
 	auto b = myC.CallFunction<i32>("testB");
 	auto f = myC.CallFunction<f32>("testC");
+
+	myC.CallFunction<void, i32>("testParam1", 10);
+	myC.CallFunction<void, i32,i32>("testParam2", 10,10);
+	myC.CallFunction<void, i32,i32,i32>("testParam3", 10,10,10);
+	myC.CallFunction<void, i32,i32,i32,i32>("testParam4", 10,10,10,10);
+	myC.CallFunction<void, i32,i32,i32,i32,i32>("testParam5",10,10,10,10,10);
+	myC.CallFunction<void, i32,i32,i32,i32,i32,i32>("testParam6",10,10,10,10,10,10);
+	myC.CallFunction<void, i32,i32,i32,i32,i32,i32,i32>("testParam7",10,10,10,10,10,10,10);
+	myC.CallFunction<void, i32,i32,i32,i32,i32,i32,i32,i32>("testParam8",10,10,10,10,10,10,10,10);
+	myC.CallFunction<void, i32,i32,i32,i32,i32,i32,i32,i32,i32>("testParam9",10,10,10,10,10,10,10,10,10);
+	myC.CallFunction<void, i32,i32,i32,i32,i32,i32,i32,i32,i32,i32>("testParam10",10,10,10,10,10,10,10,10,10,10);
 
 	auto pClass = IReflectSystem::GetInst()->FindClass("class C");
 	//auto scv = CSVParser::Create(TEXT("F:/GameDemo/Content/Configs/Skills.csv"));
