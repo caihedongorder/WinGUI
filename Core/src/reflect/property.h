@@ -29,63 +29,6 @@ namespace Core
 	template<typename T> typename FPropertyTag<T>::FPropertyTagInner FPropertyTag<T>::Inner;
 
 
-	enum ClassPropertyType
-	{
-		ClassPropertyType_Unknown,
-		ClassPropertyType_I8,
-		ClassPropertyType_I16,
-		ClassPropertyType_I32,
-		ClassPropertyType_I64,
-
-		ClassPropertyType_U8,
-		ClassPropertyType_U16,
-		ClassPropertyType_U32,
-		ClassPropertyType_U64,
-
-		ClassPropertyType_F32,
-		ClassPropertyType_F64,
-
-		ClassPropertyType_Class,
-		ClassPropertyType_Struct,
-	};
-
-	template<typename T>
-	struct FPropertyType
-	{
-		enum { Value = ClassPropertyType_Unknown };
-	};
-
-
-	template<>
-	struct FPropertyType<i8> { enum { Value = ClassPropertyType_I8 }; };
-
-	template<>
-	struct FPropertyType<i16> { enum { Value = ClassPropertyType_I16 }; };
-
-	template<>
-	struct FPropertyType<i32> { enum { Value = ClassPropertyType_I32 }; };
-
-	template<>
-	struct FPropertyType<i64> { enum { Value = ClassPropertyType_I64 }; };
-
-	template<>
-	struct FPropertyType<u8> { enum { Value = ClassPropertyType_U8 }; };
-
-	template<>
-	struct FPropertyType<u16> { enum { Value = ClassPropertyType_U16 }; };
-
-	template<>
-	struct FPropertyType<u32> { enum { Value = ClassPropertyType_U32 }; };
-
-	template<>
-	struct FPropertyType<u64> { enum { Value = ClassPropertyType_U64 }; };
-
-	template<>
-	struct FPropertyType<f32> { enum { Value = ClassPropertyType_F32 }; };
-
-	template<>
-	struct FPropertyType<f64> { enum { Value = ClassPropertyType_F64 }; };
-
 
 	class ClassProperty
 	{

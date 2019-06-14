@@ -152,6 +152,10 @@ public:
 		return f;
 	}
 
+	void testParamfloat(f32 InParam1) {
+		b = InParam1;
+	}
+
 	void testParam1(i32 InParam1) {
 		b = InParam1;
 	}
@@ -194,7 +198,8 @@ DEFINE_PROPERTY(C, b)
 DEFINE_FUNCTION(C, void, testA)
 DEFINE_FUNCTION(C, i32, testB)
 DEFINE_FUNCTION(C, f32, testC)
-DEFINE_FUNCTION_ONE_PARAM(C, void, testParam1,i32)
+DEFINE_FUNCTION_ONE_PARAM(C, void, testParamfloat, f32)
+DEFINE_FUNCTION_ONE_PARAM(C, void, testParam1, i32)
 DEFINE_FUNCTION_TWO_PARAM(C, void, testParam2,i32,i32)
 DEFINE_FUNCTION_THREE_PARAM(C, void, testParam3,i32,i32,i32)
 DEFINE_FUNCTION_FOUR_PARAM(C, void, testParam4,i32,i32,i32,i32)
@@ -235,7 +240,7 @@ int APIENTRY wWinMain(HINSTANCE hInstance,
 	auto b = myC.CallFunction<i32>("testB");
 	auto f = myC.CallFunction<f32>("testC");
 
-	myC.CallFunction<void, i32>("testParam1", 10);
+	myC.CallFunction<void, f32>("testParam1", 10.5f);
 	myC.CallFunction<void, i32,i32>("testParam2", 10,10);
 	myC.CallFunction<void, i32,i32,i32>("testParam3", 10,10,10);
 	myC.CallFunction<void, i32,i32,i32,i32>("testParam4", 10,10,10,10);
