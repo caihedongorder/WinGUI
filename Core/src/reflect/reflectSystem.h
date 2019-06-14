@@ -18,7 +18,7 @@ namespace Core
 #define DECLARE_OBJECT(ClassPrefix,ThisClass, SuperClass)\
 public:\
 	static IClass* StaticClass();\
-	virtual const IClass* GetClass() const { return ThisClass::StaticClass(); } \
+	virtual IClass* GetClass() const { return ThisClass::StaticClass(); } \
 	ThisClass();\
 private:\
 	class ClassPrefix ClassRegister\
@@ -51,4 +51,55 @@ private:\
 	mClass->AddFunction(#FunctionName , std::make_shared< Core::ClassFunction<ThisClass, decltype(pFunc), returnValue> >(&ThisClass::FunctionName));\
 }
 
+#define DEFINE_FUNCTION_ONE_PARAM(ThisClass,returnValue,FunctionName,Param1) {\
+	auto pFunc = &ThisClass::FunctionName;\
+	mClass->AddFunction(#FunctionName , std::make_shared< Core::ClassFunctionOneParam<ThisClass, decltype(pFunc),returnValue,Param1> >(&ThisClass::FunctionName));\
+}
 
+
+#define DEFINE_FUNCTION_TWO_PARAM(ThisClass,returnValue,FunctionName,Param1,Param2) {\
+	auto pFunc = &ThisClass::FunctionName;\
+	mClass->AddFunction(#FunctionName , std::make_shared< Core::ClassFunctionTwoParam<ThisClass, decltype(pFunc),returnValue,Param1,Param2> >(&ThisClass::FunctionName));\
+}
+#define DEFINE_FUNCTION_THREE_PARAM(ThisClass,returnValue,FunctionName,Param1,Param2,Param3) {\
+	auto pFunc = &ThisClass::FunctionName;\
+	mClass->AddFunction(#FunctionName , std::make_shared< Core::ClassFunctionThreeParam<ThisClass, decltype(pFunc),returnValue,Param1,Param2,Param3> >(&ThisClass::FunctionName));\
+}
+
+#define DEFINE_FUNCTION_FOUR_PARAM(ThisClass,returnValue,FunctionName,Param1,Param2,Param3,Param4) {\
+	auto pFunc = &ThisClass::FunctionName;\
+	mClass->AddFunction(#FunctionName , std::make_shared< Core::ClassFunctionFourParam<ThisClass, decltype(pFunc),returnValue,Param1,Param2,Param3,Param4> >(&ThisClass::FunctionName));\
+}
+#define DEFINE_FUNCTION_FIVE_PARAM(ThisClass,returnValue,FunctionName,Param1,Param2,Param3,Param4,Param5) {\
+	auto pFunc = &ThisClass::FunctionName;\
+	mClass->AddFunction(#FunctionName , std::make_shared< Core::ClassFunctionFiveParam<ThisClass, decltype(pFunc),returnValue,Param1,Param2,Param3,Param4,Param5> >(&ThisClass::FunctionName));\
+}
+
+#define DEFINE_FUNCTION_SIX_PARAM(ThisClass,returnValue,FunctionName,Param1,Param2,Param3,Param4,Param5,Param6) {\
+	auto pFunc = &ThisClass::FunctionName;\
+	mClass->AddFunction(#FunctionName , std::make_shared< Core::ClassFunctionSixParam<ThisClass, decltype(pFunc),returnValue,Param1,Param2,Param3,Param4,Param5,Param6> >(&ThisClass::FunctionName));\
+}
+
+
+#define DEFINE_FUNCTION_SEVEN_PARAM(ThisClass,returnValue,FunctionName,Param1,Param2,Param3,Param4,Param5,Param6,Param7) {\
+	auto pFunc = &ThisClass::FunctionName;\
+	mClass->AddFunction(#FunctionName , std::make_shared< Core::ClassFunctionSevenParam<ThisClass, decltype(pFunc),returnValue,Param1,Param2,Param3,Param4,Param5,Param6,Param7> >(&ThisClass::FunctionName));\
+}
+
+
+#define DEFINE_FUNCTION_EIGHT_PARAM(ThisClass,returnValue,FunctionName,Param1,Param2,Param3,Param4,Param5,Param6,Param7,Param8) {\
+	auto pFunc = &ThisClass::FunctionName;\
+	mClass->AddFunction(#FunctionName , std::make_shared< Core::ClassFunctionEightParam<ThisClass, decltype(pFunc),returnValue,Param1,Param2,Param3,Param4,Param5,Param6,Param7,Param8> >(&ThisClass::FunctionName));\
+}
+
+
+#define DEFINE_FUNCTION_NINE_PARAM(ThisClass,returnValue,FunctionName,Param1,Param2,Param3,Param4,Param5,Param6,Param7,Param8,Param9) {\
+	auto pFunc = &ThisClass::FunctionName;\
+	mClass->AddFunction(#FunctionName , std::make_shared< Core::ClassFunctionNineParam<ThisClass, decltype(pFunc),returnValue,Param1,Param2,Param3,Param4,Param5,Param6,Param7,Param8,Param9> >(&ThisClass::FunctionName));\
+}
+
+
+#define DEFINE_FUNCTION_TEN_PARAM(ThisClass,returnValue,FunctionName,Param1,Param2,Param3,Param4,Param5,Param6,Param7,Param8,Param9,Param10) {\
+	auto pFunc = &ThisClass::FunctionName;\
+	mClass->AddFunction(#FunctionName , std::make_shared< Core::ClassFunctionTenParam<ThisClass, decltype(pFunc),returnValue,Param1,Param2,Param3,Param4,Param5,Param6,Param7,Param8,Param9,Param10> >(&ThisClass::FunctionName));\
+}

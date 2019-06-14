@@ -1,3 +1,7 @@
-﻿  object.cpp
+﻿  reflectSystem.cpp
+e:\vs projects\win apis\win32project1\core\src\reflect\function.h(247): warning C4267: “return”: 从“size_t”转换到“i32”，可能丢失数据
+  object.cpp
+e:\vs projects\win apis\win32project1\core\src\reflect\function.h(247): warning C4267: “return”: 从“size_t”转换到“i32”，可能丢失数据
+  正在生成代码...
   Core.vcxproj -> E:\VS Projects\Win APIs\Win32Project1\\Bin\Debug\Core.dll
   Core.vcxproj -> E:\VS Projects\Win APIs\Win32Project1\\Bin\Debug\Core.pdb (Full PDB)

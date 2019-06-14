@@ -17,7 +17,7 @@ namespace Core
 		virtual void AddProperty(const std::string& InPropName, std::shared_ptr<ClassProperty> InProp) = 0;
 		virtual const ClassProperty* FindProp(const std::string& InPropName) const = 0;
 		virtual void AddFunction(const std::string& InFunctionName, std::shared_ptr<ClassFunctionBase> InProp) = 0;
-		virtual const ClassFunctionBase* FindFunction(const std::string& InFunctionName) const = 0;
+		virtual ClassFunctionBase* FindFunction(const std::string& InFunctionName) = 0;
 
 
 		template<typename C, typename prop>
