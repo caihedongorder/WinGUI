@@ -118,4 +118,18 @@ namespace Core
 			return returnValue();
 		}
 	};
+
+
+	template<typename Obj>
+	Obj* Cast(Object* InObj) {
+		if (InObj)
+		{
+			if (auto pClass = InObj->GetClass())
+			{
+				if(IClass::CanCast(pClass,Obj::StaticClass()))
+					return (Obj*)InObj;
+			}
+		}
+		return nullptr;
+	}
 }

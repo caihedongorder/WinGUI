@@ -6,9 +6,9 @@ namespace WinGUI
 {
 	class WIN_GUI_API WinCtrlBase : public WinBase
 	{
+		DECLARE_OBJECT(WIN_GUI_API, WinCtrlBase, WinBase)
 	public:
 		typedef WinBase SuperClass;
-		enum EWT { ID = EWindowType_WinCtrlBase };
 	public:
 		WinCtrlBase(u32 InPosX, u32 InPosY, u32 InSizeX, u32 InSizeY, class TopWindow* InTopWindow, HWND InParentHandle);
 

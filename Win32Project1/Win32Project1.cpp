@@ -108,7 +108,7 @@ protected:
 				.SelectItem(0,false)
 				;
 			combox.GetOnComboBoxSelChanged().AddLambda([](i32 InSelItemIndex) {
-				//WinGUI::ShowMessageBox(std::to_wstring(InSelItemIndex));
+				WinGUI::ShowMessageBox(std::to_wstring(InSelItemIndex));
 			});
 
 			auto& comboBoxEx = CreateSubWindow<WinGUI::ComboBoxEx>("ComboxEx", 300, 210, 100, 200, this, GetHandle())
@@ -152,7 +152,14 @@ public:
 		return f;
 	}
 
-	void testParamfloat(f32 InParam1) {
+	void testParamf32Reference(f32& OutParam1) {
+		OutParam1 = 10.0f;
+	}
+	void testParamf32(f32 InParam1) {
+		b = InParam1;
+	}
+
+	void testParamf64(f64 InParam1) {
 		b = InParam1;
 	}
 
@@ -198,7 +205,9 @@ DEFINE_PROPERTY(C, b)
 DEFINE_FUNCTION(C, void, testA)
 DEFINE_FUNCTION(C, i32, testB)
 DEFINE_FUNCTION(C, f32, testC)
-DEFINE_FUNCTION_ONE_PARAM(C, void, testParamfloat, f32)
+DEFINE_FUNCTION_ONE_PARAM(C, void, testParamf32, f32)
+DEFINE_FUNCTION_ONE_PARAM(C, void, testParamf32Reference, f32&)
+DEFINE_FUNCTION_ONE_PARAM(C, void, testParamf64, f64)
 DEFINE_FUNCTION_ONE_PARAM(C, void, testParam1, i32)
 DEFINE_FUNCTION_TWO_PARAM(C, void, testParam2,i32,i32)
 DEFINE_FUNCTION_THREE_PARAM(C, void, testParam3,i32,i32,i32)
@@ -220,9 +229,10 @@ int APIENTRY wWinMain(HINSTANCE hInstance,
 	LPWSTR    lpCmdLine,
 	int       nCmdShow)
 {
+	Core::Init();
 	
 	C myC;
-
+	
 	auto testFunc = &C::testA;
 	auto pTestFunc = (void*)&testFunc;
 	Func2 pTestFunc2;
@@ -239,6 +249,8 @@ int APIENTRY wWinMain(HINSTANCE hInstance,
 	myC.CallFunction<void>("testA");
 	auto b = myC.CallFunction<i32>("testB");
 	auto f = myC.CallFunction<f32>("testC");
+	
+	myC.CallFunction<void, f32&>("testParamf32Reference", f);
 
 	myC.CallFunction<void, f32>("testParam1", 10.5f);
 	myC.CallFunction<void, i32,i32>("testParam2", 10,10);

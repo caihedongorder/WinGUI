@@ -9,9 +9,9 @@ namespace Core
 	class ReflectSystemImpl : public IReflectSystem
 	{
 	public:
-		virtual IClass* RegisterClass(const std::string& InClassName) {
+		virtual IClass* RegisterClass(const std::string& InClassName,const std::string& InSuperClassName) {
 			assert(mClasses.find(InClassName) == mClasses.end());
-			auto pClass = std::make_shared<Class>(InClassName);
+			auto pClass = std::make_shared<Class>(InClassName, InSuperClassName);
 			mClasses[InClassName] = pClass;
 			return pClass.get();
 		}
@@ -23,7 +23,17 @@ namespace Core
 		}
 
 		virtual void Init() {
-
+			for (auto& eachClass : mClasses)
+			{
+				auto thisClass = eachClass.second.get();
+				if (auto superClass = FindClass(thisClass->GetSuperClassName()))
+				{
+					if (superClass != thisClass)
+					{
+						thisClass->SetSuperClass(superClass);
+					}
+				}
+			}
 		}
 		virtual void UnInit() {
 

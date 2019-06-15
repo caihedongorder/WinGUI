@@ -2,6 +2,9 @@
 
 namespace WinGUI
 {
+	IMPLEMENT_OBJECT_BEGIN(WinBase, Core::Object)
+	IMPLEMENT_OBJECT_END()
+
 	WinBase::WinBase(u32 InPosX, u32 InPosY, u32 InSizeX, u32 InSizeY, class TopWindow* InTopWindow,HWND InParentHandle)
 		:
 		WinPosX(InPosX),

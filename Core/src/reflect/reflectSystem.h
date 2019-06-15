@@ -8,7 +8,7 @@ namespace Core
 	{
 	public:
 		static IReflectSystem* GetInst();
-		virtual IClass* RegisterClass(const std::string& InClassName) = 0;
+		virtual IClass* RegisterClass(const std::string& InClassName,const std::string& InSuperClassName) = 0;
 		virtual IClass* FindClass(const std::string& InClassName) = 0;
 		virtual void Init() = 0;
 		virtual void UnInit() = 0;
@@ -17,34 +17,34 @@ namespace Core
 
 #define DECLARE_OBJECT(ClassPrefix,ThisClass, SuperClass)\
 public:\
-	static IClass* StaticClass();\
-	virtual IClass* GetClass() const { return ThisClass::StaticClass(); } \
+	static Core::IClass* StaticClass();\
+	virtual Core::IClass* GetClass() const { return ThisClass::StaticClass(); } \
 	ThisClass();\
 private:\
 	class ClassPrefix ClassRegister\
 	{\
 	public:\
 		ClassRegister(const std::string& InThisClassName,const std::string& InSuperClassName);\
-		IClass* GetClass() { return mClass;}\
+		Core::IClass* GetClass() { return mClass;}\
 	private:\
-		IClass* mClass;\
+		Core::IClass* mClass;\
 	};\
 	static ClassRegister __msRegister;
 
 #define IMPLEMENT_OBJECT_BEGIN(ThisClass, SuperClass)\
-	ThisClass::ClassRegister ThisClass::__msRegister(FPropertyTag<ThisClass>::Inner.GetName(),FPropertyTag<SuperClass>::Inner.GetName());\
-	IClass* ThisClass::StaticClass(){\
+	ThisClass::ClassRegister ThisClass::__msRegister(Core::FPropertyTag<ThisClass>::Inner.GetName(),Core::FPropertyTag<SuperClass>::Inner.GetName());\
+	Core::IClass* ThisClass::StaticClass(){\
 		return __msRegister.GetClass();\
 	}\
 	ThisClass::ThisClass(){\
 	}\
 	ThisClass::ClassRegister::ClassRegister(const std::string& InThisClassName,const std::string& InSuperClassName)\
 	{\
-		mClass = Core::IReflectSystem::GetInst()->RegisterClass(InThisClassName);
+		mClass = Core::IReflectSystem::GetInst()->RegisterClass(InThisClassName,InSuperClassName);
 
 #define IMPLEMENT_OBJECT_END() }
 
-#define DEFINE_PROPERTY(ThisClass,PropertyName) mClass->AddPropertyT<ThisClass, decltype(ThisClass::PropertyName)>(#PropertyName, IClass::GetPropOffset(&C::PropertyName));
+#define DEFINE_PROPERTY(ThisClass,PropertyName) mClass->AddPropertyT<ThisClass, decltype(ThisClass::PropertyName)>(#PropertyName, Core::IClass::GetPropOffset(&C::PropertyName));
 
 #define DEFINE_FUNCTION(ThisClass,returnValue,FunctionName) {\
 	auto pFunc = &ThisClass::FunctionName;\

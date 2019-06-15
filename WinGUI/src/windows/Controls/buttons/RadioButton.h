@@ -5,9 +5,7 @@ namespace WinGUI
 {
 	class WIN_GUI_API RadioButton : public ButtonBase
 	{
-	public:
-		typedef ButtonBase SuperClass;
-		enum EWT { ID = EWindowType_RadioButton };
+		DECLARE_OBJECT(WIN_GUI_API, RadioButton, ButtonBase)
 	public:
 		RadioButton(u32 InPosX, u32 InPosY, u32 InSizeX, u32 InSizeY, u32 InCtrlStyle, class TopWindow* InTopWindow, HWND InParentHandle);
 

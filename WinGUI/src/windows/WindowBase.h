@@ -6,28 +6,14 @@
 #include <list>
 #include <typedefines.h>
 #include <functional>
+#include <reflect/object.h>
+#include <reflect/reflectSystem.h>
 
 namespace WinGUI
 {
-	enum EWindowType
+	class WIN_GUI_API WinBase : public Core::Object
 	{
-		EWindowType_Unkown = -1,
-		EWindowType_WinBase,
-		EWindowType_WinCtrlBase,
-		EWindowType_ButtonBase,
-		EWindowType_Button,
-		EWindowType_CheckBox,
-		EWindowType_PushButton,
-		EWindowType_RadioButton,
-		EWindowType_ComboBox,
-		EWindowType_ComboBoxEx,
-
-		EWindowType_WinContainerBase,
-		EWindowType_Dialog,
-		EWindowType_TopWindow,
-	};
-	class WIN_GUI_API WinBase
-	{
+		DECLARE_OBJECT(WIN_GUI_API, WinBase, Core::Object)
 	public:
 		WinBase(u32 InPosX,u32 InPosY,u32 InSizeX,u32 InSizeY,class TopWindow* InTopWindow,HWND InParentHandle = NULL);
 		virtual ~WinBase();

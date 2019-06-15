@@ -1,11 +1,12 @@
 ﻿  Win32Project1.cpp
-e:\vs projects\win apis\win32project1\win32project1\win32project1.cpp(156): warning C4244: “=”: 从“f32”转换到“int”，可能丢失数据
-e:\vs projects\win apis\win32project1\core\src\reflect\class.h(32): warning C4311: “<function-style-cast>”: 从“i32 *”到“i32”的指针截断
-  e:\vs projects\win apis\win32project1\win32project1\win32project1.cpp(195): note: 参见对正在编译的函数 模板 实例化“i32 Core::IClass::GetPropOffset<intC::* >(Prop)”的引用
+e:\vs projects\win apis\win32project1\win32project1\win32project1.cpp(159): warning C4244: “=”: 从“f32”转换到“int”，可能丢失数据
+e:\vs projects\win apis\win32project1\win32project1\win32project1.cpp(163): warning C4244: “=”: 从“f64”转换到“int”，可能丢失数据
+e:\vs projects\win apis\win32project1\core\src\reflect\class.h(35): warning C4311: “<function-style-cast>”: 从“i32 *”到“i32”的指针截断
+  e:\vs projects\win apis\win32project1\win32project1\win32project1.cpp(202): note: 参见对正在编译的函数 模板 实例化“i32 Core::IClass::GetPropOffset<intC::* >(Prop)”的引用
           with
           [
               Prop=int C::* 
           ]
-e:\vs projects\win apis\win32project1\core\src\reflect\class.h(32): warning C4302: “<function-style-cast>”: 从“i32 *”到“i32”截断
+e:\vs projects\win apis\win32project1\core\src\reflect\class.h(35): warning C4302: “<function-style-cast>”: 从“i32 *”到“i32”截断
   Win32Project1.vcxproj -> E:\VS Projects\Win APIs\Win32Project1\\Bin\Debug\Win32Project1.exe
   Win32Project1.vcxproj -> E:\VS Projects\Win APIs\Win32Project1\\Bin\Debug\Win32Project1.pdb (Full PDB)

@@ -6,6 +6,8 @@
 
 namespace WinGUI
 {
+	IMPLEMENT_OBJECT_BEGIN(RadioButton, ButtonBase)
+	IMPLEMENT_OBJECT_END()
 
 	RadioButton::RadioButton(u32 InPosX, u32 InPosY, u32 InSizeX, u32 InSizeY, u32 InCtrlStyle, class TopWindow* InTopWindow, HWND InParentHandle)
 		:ButtonBase(InPosX, InPosY, InSizeX, InSizeY, BS_AUTORADIOBUTTON | InCtrlStyle, InTopWindow, InParentHandle)

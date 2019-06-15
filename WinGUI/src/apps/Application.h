@@ -2,6 +2,8 @@
 #include <typedefines.h>
 #include <memory>
 #include <windows/WindowBase.h>
+#include <algorithm>
+#include <windows/Containers/TopWindow.h>
 
 namespace WinGUI
 {
@@ -27,6 +29,7 @@ namespace WinGUI
 	};
 	
 	class WinBase;
+	using namespace Core;
 
 	class WIN_GUI_API ApplicationBase
 	{
@@ -61,21 +64,27 @@ namespace WinGUI
 
 		/* event ....*/
 	public:
-		template<typename WinClass>
-		WinClass* FindSubWindow(HWND InHandle, u32 InCtrlId)
-		{
+
+		TopWindow* FindTopWindow(HWND InHandle) {
 			auto pos = std::find_if(mWindows.begin(), mWindows.end(), [InHandle](const auto& InWindow) {
 				return InWindow->GetHandle() == InHandle;
 			});
 			if (pos != mWindows.end())
 			{
-				if (TopWindow* topWin = (TopWindow*)(*pos).get())
+				return Cast<TopWindow>((*pos).get());
+			}
+			return nullptr;
+		}
+
+		template<typename WinClass>
+		WinClass* FindSubWindow(HWND InHandle, u32 InCtrlId)
+		{
+			if (auto pWindow = FindTopWindow(InHandle))
+			{
+				auto CtrlHandle = ::GetDlgItem(InHandle, InCtrlId);
+				if (CtrlHandle != NULL)
 				{
-					auto CtrlHandle = ::GetDlgItem(InHandle, InCtrlId);
-					if (CtrlHandle != NULL)
-					{
-						return topWin->FindSubWindow<WinClass>(CtrlHandle);
-					}
+					return pWindow->FindSubWindow<WinClass>(CtrlHandle);
 				}
 			}
 			return nullptr;

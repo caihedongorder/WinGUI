@@ -14,6 +14,9 @@ namespace Core
 		virtual ~IClass() {}
 
 		virtual std::string GetName() const = 0;
+		virtual std::string GetSuperClassName() const = 0;
+		virtual IClass* GetSuperClass() const = 0;
+		virtual bool IsDerivedFrom(const IClass* InClass) const = 0;
 		virtual void AddProperty(const std::string& InPropName, std::shared_ptr<ClassProperty> InProp) = 0;
 		virtual const ClassProperty* FindProp(const std::string& InPropName) const = 0;
 		virtual void AddFunction(const std::string& InFunctionName, std::shared_ptr<ClassFunctionBase> InProp) = 0;
@@ -33,6 +36,9 @@ namespace Core
 			return iOffset;
 		}
 
+		static bool CanCast(const IClass* InSource, const IClass* InTarget);
 	};
+
+
 
 }

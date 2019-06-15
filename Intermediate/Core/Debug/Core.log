@@ -1,6 +1,3 @@
-﻿  reflectSystem.cpp
-  object.cpp
-  class.cpp
-  正在生成代码...
+﻿  object.cpp
   Core.vcxproj -> E:\VS Projects\Win APIs\Win32Project1\\Bin\Debug\Core.dll
   Core.vcxproj -> E:\VS Projects\Win APIs\Win32Project1\\Bin\Debug\Core.pdb (Full PDB)

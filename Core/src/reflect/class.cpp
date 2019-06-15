@@ -4,6 +4,25 @@
 
 namespace Core
 {
+	bool IClass::CanCast(const IClass* InSource, const IClass* InTarget)
+	{
+		return (InSource == InTarget || InSource->IsDerivedFrom(InTarget));
+	}
+
+	bool Class::IsDerivedFrom(const IClass* InClass) const
+	{
+		IClass* CurrentClass = GetSuperClass();
+		while (CurrentClass)
+		{
+			if (CurrentClass == InClass)
+			{
+				return true;
+			}
+			CurrentClass = CurrentClass->GetSuperClass();
+		}
+		return false;
+	}
+
 	 void Class::AddFunction(const std::string& InFunctionName, std::shared_ptr<ClassFunctionBase> InProp)
 	{
 		 assert(mFuncs.find(InFunctionName) == mFuncs.end());
@@ -18,7 +37,6 @@ namespace Core
 		return nullptr;
 	}
 
-
 	void Class::AddProperty(const std::string& InPropName, std::shared_ptr<ClassProperty> InProp)
 	{
 		assert(mProps.find(InPropName) == mProps.end());
@@ -30,4 +48,7 @@ namespace Core
 			return It->second.get();
 		return nullptr;
 	}
+
+
+
 }

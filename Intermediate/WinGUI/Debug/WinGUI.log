@@ -1,2 +1,10 @@
-﻿  WinGUI.vcxproj -> E:\VS Projects\Win APIs\Win32Project1\\Bin\Debug\WinGUI.dll
+﻿cl : 命令行 warning D9030: “/Gm”与多处理不兼容；忽略 /MP 开关
+  WindProc.cpp
+  Event_Button.cpp
+  Application.cpp
+  WinGUI.cpp
+  Event_ComboBox.cpp
+  正在生成代码...
+    ╒²╘┌┤┤╜¿┐Γ E:\VS Projects\Win APIs\Win32Project1\\Bin\Debug\WinGUI.lib ║═╢╘╧≤ E:\VS Projects\Win APIs\Win32Project1\\Bin\Debug\WinGUI.exp
+  WinGUI.vcxproj -> E:\VS Projects\Win APIs\Win32Project1\\Bin\Debug\WinGUI.dll
   WinGUI.vcxproj -> E:\VS Projects\Win APIs\Win32Project1\\Bin\Debug\WinGUI.pdb (Full PDB)

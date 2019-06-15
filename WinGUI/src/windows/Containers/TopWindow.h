@@ -7,9 +7,7 @@ namespace WinGUI
 {
 	class WIN_GUI_API TopWindow : public WinContainerBase
 	{
-	public:
-		typedef WinContainerBase SuperClass;
-		enum EWT { ID = EWindowType_TopWindow };
+		DECLARE_OBJECT(WIN_GUI_API, TopWindow, WinContainerBase)
 	public:
 		using WinContainerBase::WinContainerBase;
 

@@ -10,9 +10,7 @@ namespace WinGUI
 {
 	class WIN_GUI_API WinContainerBase : public WinBase
 	{
-	public:
-		typedef WinBase SuperClass;
-		enum EWT { ID = EWindowType_WinBase };
+		DECLARE_OBJECT(WIN_GUI_API, WinContainerBase, WinBase)
 	public:
 		using WinBase::WinBase;
 
@@ -31,7 +29,7 @@ namespace WinGUI
 			auto It = mWindows.find(InCtrlName);
 			if (It != mWindows.end())
 			{
-				return (WinClass*)It->second.get();
+				return Cast<WinClass>(It->second.get());
 			}
 			return nullptr;
 		}
@@ -41,7 +39,7 @@ namespace WinGUI
 			{
 				if (It->second->GetHandle() == InHandle)
 				{
-					return (WinClass*)It->second.get();
+					return Cast<WinClass>(It->second.get());
 				}
 			}
 			return nullptr;

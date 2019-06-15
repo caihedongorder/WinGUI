@@ -43,6 +43,21 @@ namespace Core
 		T Value;
 	};
 
+	template<typename T>
+	class TFunctionArgContent<T&> : public FunctionArgContentBase
+	{
+	public:
+		TFunctionArgContent(T& InValue)
+			:Value(InValue)
+		{
+
+		}
+		T& GetValue() { return Value; }
+
+	private:
+		T& Value;
+	};
+
 	template<>
 	class TFunctionArgContent<void> : public FunctionArgContentBase
 	{
@@ -82,8 +97,10 @@ namespace Core
 		virtual ~FunctionParamBase() {}
 
 		ClassPropertyType GetType() const { return mType; }
+		bool IsReference() const { return mIsReferene; }
 	protected:
 		ClassPropertyType mType;
+		bool mIsReferene = false;
 	};
 
 	template<typename T>
@@ -140,6 +157,18 @@ namespace Core
 	};
 
 	template<>
+	class TFunctionParam<f32&> : public FunctionParamBase
+	{
+	public:
+		TFunctionParam()
+		{
+			mType = ClassPropertyType_F32;
+			mIsReferene = true;
+		}
+	};
+
+
+	template<>
 	class TFunctionParam<f64> : public FunctionParamBase
 	{
 	public:
@@ -149,84 +178,174 @@ namespace Core
 		}
 	};
 	
-	template<typename Param, ClassPropertyType PropType>
+	template<typename Param, ClassPropertyType PropType,bool IsReference>
 	struct TFunctionArgContentSelector { typedef FunctionArgContentNone ContentType; };
 
 	template<typename Param>
-	struct TFunctionArgContentSelector<Param, ClassPropertyType_I8>
+	struct TFunctionArgContentSelector<Param, ClassPropertyType_I8,false>
 	{
 		typedef TFunctionArgContent<i8> ContentType;
 	};
-
 	template<typename Param>
-	struct TFunctionArgContentSelector<Param, ClassPropertyType_I16>
+	struct TFunctionArgContentSelector<Param, ClassPropertyType_I8,true>
 	{
-		typedef TFunctionArgContent<i16> ContentType;
+		typedef TFunctionArgContent<i8&> ContentType;
 	};
 
 	template<typename Param>
-	struct TFunctionArgContentSelector<Param, ClassPropertyType_I32>
+	struct TFunctionArgContentSelector<Param, ClassPropertyType_I16,false>
+	{
+		typedef TFunctionArgContent<i16> ContentType;
+	};
+	template<typename Param>
+	struct TFunctionArgContentSelector<Param, ClassPropertyType_I16,true>
+	{
+		typedef TFunctionArgContent<i16&> ContentType;
+	};
+
+	template<typename Param>
+	struct TFunctionArgContentSelector<Param, ClassPropertyType_I32,false>
 	{
 		typedef TFunctionArgContent<i32> ContentType;
 	};
 	template<typename Param>
-	struct TFunctionArgContentSelector<Param, ClassPropertyType_I64>
+	struct TFunctionArgContentSelector<Param, ClassPropertyType_I32,true>
 	{
-		typedef TFunctionArgContent<i64> ContentType;
+		typedef TFunctionArgContent<i32&> ContentType;
 	};
 
 
 	template<typename Param>
-	struct TFunctionArgContentSelector<Param, ClassPropertyType_F32>
+	struct TFunctionArgContentSelector<Param, ClassPropertyType_I64,false>
+	{
+		typedef TFunctionArgContent<i64> ContentType;
+	};
+	template<typename Param>
+	struct TFunctionArgContentSelector<Param, ClassPropertyType_I64,true>
+	{
+		typedef TFunctionArgContent<i64&> ContentType;
+	};
+
+
+	template<typename Param>
+	struct TFunctionArgContentSelector<Param, ClassPropertyType_F32,false>
 	{
 		typedef TFunctionArgContent<f32> ContentType;
 	};
 
 	template<typename Param>
-	struct TFunctionArgContentSelector<Param, ClassPropertyType_F64>
+	struct TFunctionArgContentSelector<Param, ClassPropertyType_F32,true>
+	{
+		typedef TFunctionArgContent<f32&> ContentType;
+	};
+
+	template<typename Param>
+	struct TFunctionArgContentSelector<Param, ClassPropertyType_F64,false>
 	{
 		typedef TFunctionArgContent<f64> ContentType;
 	};
 
 	template<typename Param>
-	std::shared_ptr<FunctionArg> NewFuntionArg(ClassPropertyType InType, Param InArgValue) {
+	struct TFunctionArgContentSelector<Param, ClassPropertyType_F64,true>
+	{
+		typedef TFunctionArgContent<f64&> ContentType;
+	};
+
+	template<typename Param>
+	std::shared_ptr<FunctionArg> NewFuntionArg(std::shared_ptr<FunctionParamBase> InParam,Param InArgValue) {
+		auto InType = InParam->GetType();
+		auto InIsReferece = InParam->IsReference();
 		if (InType == ClassPropertyType_I8)
 		{
-			return std::make_shared<FunctionArg>(new typename TSelectType<typename TFunctionArgContentSelector<Param, ClassPropertyType_I8>::ContentType,
-				typename TFunctionArgContentSelector<Param, ClassPropertyType_Unknown>::ContentType,
-				FTypeIsNumber<Param>::Value>::Type(InArgValue));
+			if (!InIsReferece)
+			{
+				return std::make_shared<FunctionArg>(new typename TSelectType<typename TFunctionArgContentSelector<Param, ClassPropertyType_I8, false>::ContentType,
+					typename TFunctionArgContentSelector<Param, ClassPropertyType_Unknown, false>::ContentType,
+					FTypeIsNumber<Param>::Value>::Type(InArgValue));
+			}
+			else
+			{
+				return std::make_shared<FunctionArg>(new typename TSelectType<typename TFunctionArgContentSelector<Param, ClassPropertyType_I8, true>::ContentType,
+					typename TFunctionArgContentSelector<Param, ClassPropertyType_Unknown, false>::ContentType,
+					std::is_same<Param,i8&>::value>::Type(InArgValue));
+			}
 		}
 		else if (InType == ClassPropertyType_I16)
 		{
-			return std::make_shared<FunctionArg>(new typename TSelectType<typename TFunctionArgContentSelector<Param, ClassPropertyType_I16>::ContentType,
-				typename TFunctionArgContentSelector<Param, ClassPropertyType_Unknown>::ContentType,
-				FTypeIsNumber<Param>::Value>::Type(InArgValue));
+			if (!InIsReferece)
+			{
+				return std::make_shared<FunctionArg>(new typename TSelectType<typename TFunctionArgContentSelector<Param, ClassPropertyType_I16, false>::ContentType,
+					typename TFunctionArgContentSelector<Param, ClassPropertyType_Unknown, false>::ContentType,
+					FTypeIsNumber<Param>::Value>::Type(InArgValue));
+			}
+			else
+			{
+				return std::make_shared<FunctionArg>(new typename TSelectType<typename TFunctionArgContentSelector<Param, ClassPropertyType_I16, true>::ContentType,
+					typename TFunctionArgContentSelector<Param, ClassPropertyType_Unknown, false>::ContentType,
+					std::is_same<Param, i16&>::value>::Type(InArgValue));
+			}
 		}
 		else if (InType == ClassPropertyType_I32)
 		{
-			return std::make_shared<FunctionArg>(new typename TSelectType<typename TFunctionArgContentSelector<Param, ClassPropertyType_I32>::ContentType,
-				typename TFunctionArgContentSelector<Param, ClassPropertyType_Unknown>::ContentType,
-				FTypeIsNumber<Param>::Value>::Type(InArgValue));
+			if (!InIsReferece)
+			{
+				return std::make_shared<FunctionArg>(new typename TSelectType<typename TFunctionArgContentSelector<Param, ClassPropertyType_I32, false>::ContentType,
+					typename TFunctionArgContentSelector<Param, ClassPropertyType_Unknown, false>::ContentType,
+					FTypeIsNumber<Param>::Value>::Type(InArgValue));
+			}
+			else
+			{
+				return std::make_shared<FunctionArg>(new typename TSelectType<typename TFunctionArgContentSelector<Param, ClassPropertyType_I32, true>::ContentType,
+					typename TFunctionArgContentSelector<Param, ClassPropertyType_Unknown, false>::ContentType,
+					std::is_same<Param, i32&>::value>::Type(InArgValue));
+			}
 		}
 		else if (InType == ClassPropertyType_I64)
 		{
-			return std::make_shared<FunctionArg>(new typename TSelectType<typename TFunctionArgContentSelector<Param, ClassPropertyType_I64>::ContentType,
-				typename TFunctionArgContentSelector<Param, ClassPropertyType_Unknown>::ContentType,
-				FTypeIsNumber<Param>::Value>::Type(InArgValue));
+			if (!InIsReferece)
+			{
+				return std::make_shared<FunctionArg>(new typename TSelectType<typename TFunctionArgContentSelector<Param, ClassPropertyType_I64, false>::ContentType,
+					typename TFunctionArgContentSelector<Param, ClassPropertyType_Unknown, false>::ContentType,
+					FTypeIsNumber<Param>::Value>::Type(InArgValue));
+			}
+			else
+			{
+				return std::make_shared<FunctionArg>(new typename TSelectType<typename TFunctionArgContentSelector<Param, ClassPropertyType_I64, true>::ContentType,
+					typename TFunctionArgContentSelector<Param, ClassPropertyType_Unknown, false>::ContentType,
+					std::is_same<Param, i64&>::value>::Type(InArgValue));
+			}
 		}
 		else if (InType == ClassPropertyType_F32)
 		{
-			return std::make_shared<FunctionArg>(new typename TSelectType<typename TFunctionArgContentSelector<Param, ClassPropertyType_F32>::ContentType,
-				typename TFunctionArgContentSelector<Param, ClassPropertyType_Unknown>::ContentType,
-				FTypeIsNumber<Param>::Value>::Type(InArgValue));
+			if (!InIsReferece)
+			{
+				return std::make_shared<FunctionArg>(new typename TSelectType<typename TFunctionArgContentSelector<Param, ClassPropertyType_F32, false>::ContentType,
+					typename TFunctionArgContentSelector<Param, ClassPropertyType_Unknown, false>::ContentType,
+					FTypeIsNumber<Param>::Value>::Type(InArgValue));
+			}
+			else
+			{
+				return std::make_shared<FunctionArg>(new typename TSelectType<typename TFunctionArgContentSelector<Param, ClassPropertyType_F32, true>::ContentType,
+					typename TFunctionArgContentSelector<Param, ClassPropertyType_Unknown, false>::ContentType,
+					std::is_same<Param, f32&>::value>::Type(InArgValue));
+			}
 		}
 		else if (InType == ClassPropertyType_F64)
 		{
-			return std::make_shared<FunctionArg>(new typename TSelectType<typename TFunctionArgContentSelector<Param, ClassPropertyType_F64>::ContentType,
-				typename TFunctionArgContentSelector<Param, ClassPropertyType_Unknown>::ContentType,
-				FTypeIsNumber<Param>::Value>::Type(InArgValue));
+			if (!InIsReferece)
+			{
+				return std::make_shared<FunctionArg>(new typename TSelectType<typename TFunctionArgContentSelector<Param, ClassPropertyType_F64, false>::ContentType,
+					typename TFunctionArgContentSelector<Param, ClassPropertyType_Unknown, false>::ContentType,
+					FTypeIsNumber<Param>::Value>::Type(InArgValue));
+			}
+			else
+			{
+				return std::make_shared<FunctionArg>(new typename TSelectType<typename TFunctionArgContentSelector<Param, ClassPropertyType_F64, true>::ContentType,
+					typename TFunctionArgContentSelector<Param, ClassPropertyType_Unknown, false>::ContentType,
+					std::is_same<Param, f64&>::value>::Type(InArgValue));
+			}
 		}
-		return std::make_shared<FunctionArg>(new typename TFunctionArgContentSelector<Param, ClassPropertyType_Unknown>::ContentType(InArgValue));
+		return std::make_shared<FunctionArg>(new typename TFunctionArgContentSelector<Param, ClassPropertyType_Unknown,false>::ContentType(InArgValue));
 	}
 
 
@@ -269,7 +388,7 @@ namespace Core
 			this->BeginCall();
 			if (mParams.size() == 1)
 			{
-				this->AddArg(NewFuntionArg<Param1>(mParams[0]->GetType(), InParam1));
+				this->AddArg(NewFuntionArg<Param1>(mParams[0], InParam1));
 				this->SetObj(InObject);
 				this->Invoke();
 			}
@@ -281,8 +400,8 @@ namespace Core
 			this->BeginCall();
 			if (mParams.size() == 2)
 			{
-				this->AddArg(NewFuntionArg<Param1>(mParams[0]->GetType(), InParam1));
-				this->AddArg(NewFuntionArg<Param2>(mParams[1]->GetType(), InParam2));
+				this->AddArg(NewFuntionArg<Param1>(mParams[0], InParam1));
+				this->AddArg(NewFuntionArg<Param2>(mParams[1], InParam2));
 				this->SetObj(InObject);
 				this->Invoke();
 			}
@@ -294,9 +413,9 @@ namespace Core
 			this->BeginCall();
 			if (mParams.size() == 3)
 			{
-				this->AddArg(NewFuntionArg<Param1>(mParams[0]->GetType(), InParam1));
-				this->AddArg(NewFuntionArg<Param2>(mParams[1]->GetType(), InParam2));
-				this->AddArg(NewFuntionArg<Param3>(mParams[2]->GetType(), InParam3));
+				this->AddArg(NewFuntionArg<Param1>(mParams[0], InParam1));
+				this->AddArg(NewFuntionArg<Param2>(mParams[1], InParam2));
+				this->AddArg(NewFuntionArg<Param3>(mParams[2], InParam3));
 				this->SetObj(InObject);
 				this->Invoke();
 			}
@@ -308,10 +427,10 @@ namespace Core
 			this->BeginCall();
 			if (mParams.size() == 4)
 			{
-				this->AddArg(NewFuntionArg<Param1>(mParams[0]->GetType(), InParam1));
-				this->AddArg(NewFuntionArg<Param2>(mParams[1]->GetType(), InParam2));
-				this->AddArg(NewFuntionArg<Param3>(mParams[2]->GetType(), InParam3));
-				this->AddArg(NewFuntionArg<Param4>(mParams[3]->GetType(), InParam4));
+				this->AddArg(NewFuntionArg<Param1>(mParams[0], InParam1));
+				this->AddArg(NewFuntionArg<Param2>(mParams[1], InParam2));
+				this->AddArg(NewFuntionArg<Param3>(mParams[2], InParam3));
+				this->AddArg(NewFuntionArg<Param4>(mParams[3], InParam4));
 				this->SetObj(InObject);
 				this->Invoke();
 			}
@@ -323,11 +442,11 @@ namespace Core
 			this->BeginCall();
 			if (mParams.size() == 5)
 			{
-				this->AddArg(NewFuntionArg<Param1>(mParams[0]->GetType(), InParam1));
-				this->AddArg(NewFuntionArg<Param2>(mParams[1]->GetType(), InParam2));
-				this->AddArg(NewFuntionArg<Param3>(mParams[2]->GetType(), InParam3));
-				this->AddArg(NewFuntionArg<Param4>(mParams[3]->GetType(), InParam4));
-				this->AddArg(NewFuntionArg<Param5>(mParams[4]->GetType(), InParam5));
+				this->AddArg(NewFuntionArg<Param1>(mParams[0], InParam1));
+				this->AddArg(NewFuntionArg<Param2>(mParams[1], InParam2));
+				this->AddArg(NewFuntionArg<Param3>(mParams[2], InParam3));
+				this->AddArg(NewFuntionArg<Param4>(mParams[3], InParam4));
+				this->AddArg(NewFuntionArg<Param5>(mParams[4], InParam5));
 				this->SetObj(InObject);
 				this->Invoke();
 			}
@@ -339,12 +458,12 @@ namespace Core
 			this->BeginCall();
 			if (mParams.size() == 6)
 			{
-				this->AddArg(NewFuntionArg<Param1>(mParams[0]->GetType(), InParam1));
-				this->AddArg(NewFuntionArg<Param2>(mParams[1]->GetType(), InParam2));
-				this->AddArg(NewFuntionArg<Param3>(mParams[2]->GetType(), InParam3));
-				this->AddArg(NewFuntionArg<Param4>(mParams[3]->GetType(), InParam4));
-				this->AddArg(NewFuntionArg<Param5>(mParams[4]->GetType(), InParam5));
-				this->AddArg(NewFuntionArg<Param6>(mParams[5]->GetType(), InParam6));
+				this->AddArg(NewFuntionArg<Param1>(mParams[0], InParam1));
+				this->AddArg(NewFuntionArg<Param2>(mParams[1], InParam2));
+				this->AddArg(NewFuntionArg<Param3>(mParams[2], InParam3));
+				this->AddArg(NewFuntionArg<Param4>(mParams[3], InParam4));
+				this->AddArg(NewFuntionArg<Param5>(mParams[4], InParam5));
+				this->AddArg(NewFuntionArg<Param6>(mParams[5], InParam6));
 				this->SetObj(InObject);
 				this->Invoke();
 			}
@@ -356,13 +475,13 @@ namespace Core
 			this->BeginCall();
 			if (mParams.size() == 7)
 			{
-				this->AddArg(NewFuntionArg<Param1>(mParams[0]->GetType(), InParam1));
-				this->AddArg(NewFuntionArg<Param2>(mParams[1]->GetType(), InParam2));
-				this->AddArg(NewFuntionArg<Param3>(mParams[2]->GetType(), InParam3));
-				this->AddArg(NewFuntionArg<Param4>(mParams[3]->GetType(), InParam4));
-				this->AddArg(NewFuntionArg<Param5>(mParams[4]->GetType(), InParam5));
-				this->AddArg(NewFuntionArg<Param6>(mParams[5]->GetType(), InParam6));
-				this->AddArg(NewFuntionArg<Param7>(mParams[6]->GetType(), InParam7));
+				this->AddArg(NewFuntionArg<Param1>(mParams[0], InParam1));
+				this->AddArg(NewFuntionArg<Param2>(mParams[1], InParam2));
+				this->AddArg(NewFuntionArg<Param3>(mParams[2], InParam3));
+				this->AddArg(NewFuntionArg<Param4>(mParams[3], InParam4));
+				this->AddArg(NewFuntionArg<Param5>(mParams[4], InParam5));
+				this->AddArg(NewFuntionArg<Param6>(mParams[5], InParam6));
+				this->AddArg(NewFuntionArg<Param7>(mParams[6], InParam7));
 				this->SetObj(InObject);
 				this->Invoke();
 			}
@@ -374,14 +493,14 @@ namespace Core
 			this->BeginCall();
 			if (mParams.size() == 8)
 			{
-				this->AddArg(NewFuntionArg<Param1>(mParams[0]->GetType(), InParam1));
-				this->AddArg(NewFuntionArg<Param2>(mParams[1]->GetType(), InParam2));
-				this->AddArg(NewFuntionArg<Param3>(mParams[2]->GetType(), InParam3));
-				this->AddArg(NewFuntionArg<Param4>(mParams[3]->GetType(), InParam4));
-				this->AddArg(NewFuntionArg<Param5>(mParams[4]->GetType(), InParam5));
-				this->AddArg(NewFuntionArg<Param6>(mParams[5]->GetType(), InParam6));
-				this->AddArg(NewFuntionArg<Param7>(mParams[6]->GetType(), InParam7));
-				this->AddArg(NewFuntionArg<Param8>(mParams[7]->GetType(), InParam8));
+				this->AddArg(NewFuntionArg<Param1>(mParams[0], InParam1));
+				this->AddArg(NewFuntionArg<Param2>(mParams[1], InParam2));
+				this->AddArg(NewFuntionArg<Param3>(mParams[2], InParam3));
+				this->AddArg(NewFuntionArg<Param4>(mParams[3], InParam4));
+				this->AddArg(NewFuntionArg<Param5>(mParams[4], InParam5));
+				this->AddArg(NewFuntionArg<Param6>(mParams[5], InParam6));
+				this->AddArg(NewFuntionArg<Param7>(mParams[6], InParam7));
+				this->AddArg(NewFuntionArg<Param8>(mParams[7], InParam8));
 				this->SetObj(InObject);
 				this->Invoke();
 			}
@@ -393,15 +512,15 @@ namespace Core
 			this->BeginCall();
 			if (mParams.size() == 9)
 			{
-				this->AddArg(NewFuntionArg<Param1>(mParams[0]->GetType(), InParam1));
-				this->AddArg(NewFuntionArg<Param2>(mParams[1]->GetType(), InParam2));
-				this->AddArg(NewFuntionArg<Param3>(mParams[2]->GetType(), InParam3));
-				this->AddArg(NewFuntionArg<Param4>(mParams[3]->GetType(), InParam4));
-				this->AddArg(NewFuntionArg<Param5>(mParams[4]->GetType(), InParam5));
-				this->AddArg(NewFuntionArg<Param6>(mParams[5]->GetType(), InParam6));
-				this->AddArg(NewFuntionArg<Param7>(mParams[6]->GetType(), InParam7));
-				this->AddArg(NewFuntionArg<Param8>(mParams[7]->GetType(), InParam8));
-				this->AddArg(NewFuntionArg<Param9>(mParams[8]->GetType(), InParam9));
+				this->AddArg(NewFuntionArg<Param1>(mParams[0], InParam1));
+				this->AddArg(NewFuntionArg<Param2>(mParams[1], InParam2));
+				this->AddArg(NewFuntionArg<Param3>(mParams[2], InParam3));
+				this->AddArg(NewFuntionArg<Param4>(mParams[3], InParam4));
+				this->AddArg(NewFuntionArg<Param5>(mParams[4], InParam5));
+				this->AddArg(NewFuntionArg<Param6>(mParams[5], InParam6));
+				this->AddArg(NewFuntionArg<Param7>(mParams[6], InParam7));
+				this->AddArg(NewFuntionArg<Param8>(mParams[7], InParam8));
+				this->AddArg(NewFuntionArg<Param9>(mParams[8], InParam9));
 				this->SetObj(InObject);
 				this->Invoke();
 			}
@@ -413,16 +532,16 @@ namespace Core
 			this->BeginCall();
 			if (mParams.size() == 10)
 			{
-				this->AddArg(NewFuntionArg<Param1>(mParams[0]->GetType(), InParam1));
-				this->AddArg(NewFuntionArg<Param2>(mParams[1]->GetType(), InParam2));
-				this->AddArg(NewFuntionArg<Param3>(mParams[2]->GetType(), InParam3));
-				this->AddArg(NewFuntionArg<Param4>(mParams[3]->GetType(), InParam4));
-				this->AddArg(NewFuntionArg<Param5>(mParams[4]->GetType(), InParam5));
-				this->AddArg(NewFuntionArg<Param6>(mParams[5]->GetType(), InParam6));
-				this->AddArg(NewFuntionArg<Param7>(mParams[6]->GetType(), InParam7));
-				this->AddArg(NewFuntionArg<Param8>(mParams[7]->GetType(), InParam8));
-				this->AddArg(NewFuntionArg<Param9>(mParams[8]->GetType(), InParam9));
-				this->AddArg(NewFuntionArg<Param10>(mParams[9]->GetType(), InParam9));
+				this->AddArg(NewFuntionArg<Param1>(mParams[0], InParam1));
+				this->AddArg(NewFuntionArg<Param2>(mParams[1], InParam2));
+				this->AddArg(NewFuntionArg<Param3>(mParams[2], InParam3));
+				this->AddArg(NewFuntionArg<Param4>(mParams[3], InParam4));
+				this->AddArg(NewFuntionArg<Param5>(mParams[4], InParam5));
+				this->AddArg(NewFuntionArg<Param6>(mParams[5], InParam6));
+				this->AddArg(NewFuntionArg<Param7>(mParams[6], InParam7));
+				this->AddArg(NewFuntionArg<Param8>(mParams[7], InParam8));
+				this->AddArg(NewFuntionArg<Param9>(mParams[8], InParam9));
+				this->AddArg(NewFuntionArg<Param10>(mParams[9], InParam9));
 				this->SetObj(InObject);
 				this->Invoke();
 			}

@@ -2,6 +2,8 @@
 
 namespace WinGUI
 {
+	IMPLEMENT_OBJECT_BEGIN(TopWindow, WinContainerBase)
+	IMPLEMENT_OBJECT_END()
 
 	bool TopWindow::OnClose()
 	{

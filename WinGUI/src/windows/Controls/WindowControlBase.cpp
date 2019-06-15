@@ -3,6 +3,8 @@
 
 namespace WinGUI
 {
+	IMPLEMENT_OBJECT_BEGIN(WinCtrlBase, WinBase)
+	IMPLEMENT_OBJECT_END()
 
 	WinCtrlBase::WinCtrlBase(u32 InPosX, u32 InPosY, u32 InSizeX, u32 InSizeY,class TopWindow* InTopWindow, HWND InParentHandle)
 		:WinBase(InPosX,InPosY,InSizeX,InSizeY, InTopWindow,InParentHandle)
